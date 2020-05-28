@@ -11,6 +11,10 @@ module Sfn
           rescue
             next
           end
+          if resource.name.nil?
+            ui.info "Found a failed resource, whose name is nil, skipping..."
+            next
+          end
           next unless resource.is_a?(Miasma::Models::Storage::Bucket)
           files = resource.files.all
           next if files.empty?
